@@ -5,6 +5,7 @@
 #include <a_mysql>
 #include <sscanf2>
 #include <foreach>
+#include <mxINI>
 
 #define FILTERSCRIPT
 
@@ -52,10 +53,7 @@
 
 new const Owners[][] = {
 
-	{"polyana"},
-	{"Forman"},
-	{"Chris_Lorenzo"},
-	{"King_Agressor"}
+	{"Forest_Wood"}
 
 };
 
@@ -71,7 +69,17 @@ new Streamer_Types[STREAMER_MAX_TYPES] =
 	STREAMER_TYPE_AREA,
 	STREAMER_TYPE_OBJECT
 };
-
+//------------------------------------------------------------------------------
+// Load private.ini
+enum LogPrivate_Data
+{
+	CFG_LOGHOST[24],
+	CFG_LOGUSER[16],
+	CFG_LOGTABLE[16],
+	CFG_LOGPASSWORD[16]
+};
+new LogPrivate[LogPrivate_Data];
+//------------------------------------------------------------------------------
 new const bool:WRITE_ACTION_SERVER = true;
 
 enum p_info
@@ -460,6 +468,8 @@ new LOG_BASE;
 
 public OnFilterScriptInit()
 {
+	LoadServerPrivateLog();
+
 	Streamer_ToggleChunkStream(true);
 
 	Streamer_SetChunkSize(STREAMER_TYPE_OBJECT, 1000);
@@ -482,14 +492,31 @@ public OnFilterScriptInit()
 	load_PawnShop();
 	return false;
 }
-
+//------------------------------------------------------------------------------
+// Load private.ini
+stock LoadServerPrivateLog()
+{
+	if !fexist("private.ini") *then
+		return print("file 'private.ini' not found");
+	
+	new GetFile = ini_openFile("private.ini");
+	
+	ini_getString(GetFile, "LOGHOST", LogPrivate[CFG_LOGHOST]);
+	ini_getString(GetFile, "LOGUSER", LogPrivate[CFG_LOGUSER]);
+	ini_getString(GetFile, "LOGTABLE", LogPrivate[CFG_LOGTABLE]);
+	ini_getString(GetFile, "LOGPASSWORD", LogPrivate[CFG_LOGPASSWORD]);
+	
+	return ini_closeFile(GetFile);
+}
+//------------------------------------------------------------------------------
 public: @CONNECTION_LOG_BASE(unix_time) {
 
 	if WRITE_ACTION_SERVER *then
 	{
 		new ms = GetTickCount();
 
-  		/*LOG_BASE = mysql_connect("127.0.0.1", "gs1231", "gs1231", "eSuJFjEsaS", 3306, true);*/
+  		// LOG_BASE = mysql_connect(LogPrivate[CFG_LOGHOST], LogPrivate[CFG_LOGUSER], LogPrivate[CFG_LOGTABLE], LogPrivate[CFG_LOGPASSWORD], 3306, true);
+		LOG_BASE = mysql_connect(LogPrivate[CFG_LOGHOST], LogPrivate[CFG_LOGUSER], LogPrivate[CFG_LOGTABLE], LogPrivate[CFG_LOGPASSWORD]);
 
 		if !mysql_errno(LOG_BASE) *then
 			mysql_set_charset("cp1251", LOG_BASE);
