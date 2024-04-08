@@ -4,7 +4,7 @@
 #include Pawn.RakNet
 
 
-native PB_RegisterBot(name[]);
+// native PB_RegisterBot(name[]);
 
 #define MAX_NAME 		(4096)
 #define MAX_ADMIN 		(32)
@@ -545,7 +545,7 @@ public OnPBotUpdate()
 			    gFakeCount++;
 			    gNickC{id} = 1;
 			    Iter_Add(fNickC, id);
-				PB_RegisterBot(gNick[id]);
+				// PB_RegisterBot(gNick[id]);
 				ConnectNPC(gNick[id], "pawnbots");
 			}
 		}

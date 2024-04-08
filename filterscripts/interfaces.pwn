@@ -390,9 +390,9 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 			    OnPlayerInitializingBrowser(playerid);
 			    
 				player_Vue_Init[playerid] = true;
-				SCM(playerid, -1, "[vue] цеф инициализирован");
+				// SCM(playerid, -1, "[vue] цеф инициализирован");
 				player_Svetle_Init[playerid] = true;
-				SCM(playerid, -1, "[svetle] цеф инициализирован");
+				// SCM(playerid, -1, "[svetle] цеф инициализирован");
 				
 				ExecuteEventf(255, playerid, svelte, "window.executeEvent('event.auth.updateServerOnline', '[[ %i ]]');", MaxOnline);
 			}
@@ -1402,9 +1402,7 @@ stock CreateBrowser(playerid, browserid, const url[])
 	BS_WriteValue(bs, PR_UINT8, 0);
 	BS_WriteValue(bs, PR_UINT8, player_Cef_PositionWindow_rX[playerid]); //132 169
 	BS_WriteValue(bs, PR_UINT8, player_Cef_PositionWindow_rY[playerid]); //3 2
-	printf("playerid %i -> window x y stable %i %i %i %i", \
-	playerid, player_Cef_PositionWindow_X[playerid], player_Cef_PositionWindow_Y[playerid], \
-	player_Cef_PositionWindow_rX[playerid], player_Cef_PositionWindow_rY[playerid]);
+	// printf("playerid %i -> window x y stable %i %i %i %i", playerid, player_Cef_PositionWindow_X[playerid], player_Cef_PositionWindow_Y[playerid], player_Cef_PositionWindow_rX[playerid], player_Cef_PositionWindow_rY[playerid]);
 	BS_WriteValue(bs, PR_UINT8, 0);
 	BS_WriteValue(bs, PR_UINT8, 0);
 	BS_WriteValue(bs, PR_UINT8, 0);
