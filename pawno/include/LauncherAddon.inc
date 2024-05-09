@@ -2,9 +2,18 @@
 native SetLauncherStatus(playerid, bool:status);//Устанавливает статус лаунчера игрока. Если указан true, то у игрока будут работать авто, CEF вызовы и другие функции лаунчера.
 native GetLauncherStatus(playerid);//Возвращает статус лаунчера игрока.
 
+//Коллиззия
 native Arz_SetPlayerCollision(playerid, bool:status);//Устанавливает статус коллизии игрока. Если указан false, то игрок сможет проходить сквозь игроков и авто.
 native Arz_GetPlayerCollisionStatus(playerid);//Возвращает статус коллизии игрока.
 
+//Аксессуары
+native Arz_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX = 0.0, Float:fOffsetY = 0.0, Float:fOffsetZ = 0.0, Float:fRotX = 0.0, Float:fRotY = 0.0, Float:fRotZ = 0.0, Float:fScaleX = 1.0, Float:fScaleY = 1.0, Float:fScaleZ = 1.0, materialcolor1 = 0, materialcolor2 = 0);//Устанавливает объект игроку
+native Arz_RemovePlayerAttachedObject(playerid, index);//Удаляет присоединенный к игроку объект
+native Arz_IsPlayerAttachedObjSlotUsed(playerid, index);//Возвращает true, если к игроку присоединен объект
+native Arz_GetPlayerAttachedObject(playerid, index);//Возвращает модель присоединенного объекта
+native Arz_EditAttachedObject(playerid, index);//Редактирование позиции/поворота/размера объекта
+
+//Тюнинг
 #define MAX_ARIZONA_TUNING_SLOTS (8)
 #define ARIZONA_TUNING_SLOT_BONNET (1)
 #define ARIZONA_TUNING_SLOT_EXHAUST (2)
@@ -132,5 +141,6 @@ public GetLauncherVehicleModel(current_model)
 	return model;
 }
 
+forward Arz_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);//Вызывается при редактировании присоединенного объекта
 forward OnPlayerResolutionUpdate(playerid, X_1, Y_1, X_2, Y_2);//Вызывается при смене разрешения экрана у игрока.
 forward OnPlayerSendCefQuery(playerid, function_id, query[]);//Вызывается при CEF вызовах со стороны игрока

@@ -52,9 +52,9 @@
 #define MAX_PLAYERS 150
 
 new const Owners[][] = {
-
+	// {"Flex_Nelson"},
+	{"Lilly_Puls"},
 	{"Forest_Wood"}
-
 };
 
 // news 
@@ -1870,8 +1870,9 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid, F
 
 stock GetPlayerLauncher(playerid)
 {
-	GetPlayerVersion(playerid, str, 24);
-	return ( GetString(str, "Arizona PC") || GetString(str, "arizona-mobile")  ? 1:0 );
+	new version[24];
+	GetPlayerVersion(playerid, version, sizeof(version));
+	return ( GetString(version, "Arizona PC") || GetString(version, "arizona-mobile")  ? 1:0 );
 }
 
 #if !defined isnull

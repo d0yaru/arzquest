@@ -1,6 +1,7 @@
 filterscripts/ilya.amx
 filterscripts/interfaces.amx
 filterscripts/pawnbots.amx
+gamemodes/help/
 gamemodes/arizona.amx
 scriptfiles/SAfull.hmap
 scriptfiles/SAmin.hmap
